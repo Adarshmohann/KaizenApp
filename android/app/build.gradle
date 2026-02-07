@@ -78,12 +78,26 @@ android {
     compileSdk rootProject.ext.compileSdkVersion
 
     namespace "com.kaizenapp"
-    defaultConfig {
+        defaultConfig {
         applicationId "com.kaizenapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+             externalNativeBuild {
+        cmake {
+            // this will make sure CMake uses c++20
+            arguments "-DCMAKE_CXX_STANDARD=20", "-DCMAKE_CXX_STANDARD_REQUIRED=ON", "-DCMAKE_CXX_FLAGS=-std=c++20"
+            // Also include for compile-time (redundant but helps)
+            cppFlags "-std=c++20"
+        }
+    }
+        ndk {
+            // This is the most reliable place to set the C++ library in modern RN
+            // It links libc++_shared, liblog, and libunwind for exceptions.
+            // Note: Use c++_shared, not c++_static, as RN relies on shared linking.
+            stl "c++_shared"
+        }
     }
     signingConfigs {
         debug {

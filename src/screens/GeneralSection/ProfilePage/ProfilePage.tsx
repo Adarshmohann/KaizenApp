@@ -1,0 +1,138 @@
+import React, { useState } from 'react';
+import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
+import AppLayout from '../../../layouts/AppLayout';
+import { lightColor } from '../../../theme/colors';
+import AppHeader from '../../../components/AppHeader';
+import CustomSwitch from '../../../components/CustomSwitch';
+import ProfilePageStyles from './styles';
+import MailIcon from '../../../assets/svgs/mailIcon';
+import PhoneIcon from '../../../assets/svgs/phoneIcon';
+import SmileIcon from '../../../assets/svgs/smileIcon';
+import FingerprintIcon from '../../../assets/svgs/fingerprintIcon';
+import MoonIcon from '../../../assets/svgs/moonIcon';
+import CalendarIcon from '../../../assets/svgs/calendarIcon';
+
+interface InfoItem {
+  label: string;
+  value: string;
+  icon: React.ReactNode;
+}
+
+const ProfilePage = () => {
+  const styles = ProfilePageStyles();
+  const [faceIdEnabled, setFaceIdEnabled] = useState<boolean>(false);
+  const [fingerprintEnabled, setFingerprintEnabled] = useState<boolean>(false);
+  const [darkModeEnabled, setDarkModeEnabled] = useState<boolean>(false);
+
+  const infoItems: InfoItem[] = [
+    {
+      label: 'Email',
+      value: 'Sample@example.com',
+      icon: <MailIcon stroke={lightColor.primary} width={20} height={20} />,
+    },
+    {
+      label: 'Phone',
+      value: '(988) 000- 8888',
+      icon: <PhoneIcon stroke={lightColor.primary} width={20} height={20} />,
+    },
+    {
+      label: 'DOB',
+      value: '12 Dec 2001',
+      icon: <CalendarIcon stroke={lightColor.primary} width={20} height={20} />,
+    },
+  ];
+
+  return (
+    <AppLayout topColor={lightColor.background} bottomColor={lightColor.background} behaviour={null}>
+      <View style={[styles.container,{}]}>
+        <AppHeader title="Profile" titleAlign="left" />
+
+        <View style={styles.contentWrapper}>
+          <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
+            
+            
+            <View style={styles.profileImageContainer}>
+              <View style={styles.imageWrapper}>
+                <Image 
+                  source={{ uri: 'https://i.pravatar.cc/300?img=32' }} 
+                  style={styles.profileImage} 
+                />
+              </View>
+              <Text style={styles.userName}>Sarah Joe</Text>
+            </View>
+
+            
+            <View style={styles.infoSection}>
+              {infoItems?.map((item, index) => (
+                <View key={index} style={styles.infoItem}>
+                  <View style={styles.iconContainer}>
+                    {item.icon}
+                  </View>
+                  <View style={styles.infoTextContainer}>
+                    <Text style={styles.infoLabel}>{item.label}</Text>
+                    <Text style={styles.infoValue}>{item.value}</Text>
+                  </View>
+                </View>
+              ))}
+            </View>
+
+            
+            <View style={styles.sectionDivider}>
+              <Text style={styles.sectionTitle}>Security</Text>
+              
+              <View style={styles.settingItem}>
+                <View style={styles.iconContainer}>
+                  <SmileIcon stroke={lightColor.primary} width={20} height={20} />
+                </View>
+                <View style={styles.settingTextContainer}>
+                  <Text style={styles.settingLabel}>Face ID</Text>
+                  <Text style={styles.settingSubtext}>Use Face ID to unlock the app</Text>
+                </View>
+                <CustomSwitch 
+                  value={faceIdEnabled} 
+                  onValueChange={setFaceIdEnabled} 
+                />
+              </View>
+
+              <View style={styles.settingItem}>
+                <View style={styles.iconContainer}>
+                  <FingerprintIcon stroke={lightColor.primary} width={20} height={20} />
+                </View>
+                <View style={styles.settingTextContainer}>
+                  <Text style={styles.settingLabel}>Fingerprint</Text>
+                  <Text style={styles.settingSubtext}>Use Fingerprint to unlock the app</Text>
+                </View>
+                <CustomSwitch 
+                  value={fingerprintEnabled} 
+                  onValueChange={setFingerprintEnabled} 
+                />
+              </View>
+            </View>
+
+           
+            <View style={styles.sectionDivider}>
+              <Text style={styles.sectionTitle}>Appearance</Text>
+              
+              <View style={styles.settingItem}>
+                <View style={styles.iconContainer}>
+                  <MoonIcon stroke={lightColor.primary} width={20} height={20} />
+                </View>
+                <View style={styles.settingTextContainer}>
+                  <Text style={styles.settingLabel}>Dark Mode</Text>
+                  <Text style={styles.settingSubtext}>Enable dark mode theme</Text>
+                </View>
+                <CustomSwitch 
+                  value={darkModeEnabled} 
+                  onValueChange={setDarkModeEnabled} 
+                />
+              </View>
+            </View>
+
+          </ScrollView>
+        </View>
+      </View>
+    </AppLayout>
+  );
+};
+
+export default ProfilePage;
