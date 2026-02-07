@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Dimensions, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { LineChart } from "react-native-gifted-charts";
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
@@ -11,41 +11,98 @@ import CreditScoreGauge from '../../../components/CreditScoreGauge';
 import AppLayout from '../../../layouts/AppLayout';
 import { lightColor } from '../../../theme/colors';
 import HomePageStyles from './styles';
+import { useAppSelector } from '../../../utils/hooks';
+import { RootState } from '../../../redux/store';
 
 const { width } = Dimensions.get('window');
 
 const HomePage = () => {
   const styles = HomePageStyles();
+  const { user } = useAppSelector((state: RootState) => state.userData);
 
-  const currentScore = 730;
+
+  
 
 
-  interface LineDataPoint {
-    value: number;
-    label: string;
-  }
-
- const lineData: LineDataPoint[] = [
-  { value: 660, label: 'Jan' },
-  { value: 700, label: '' },
-
-  { value: 690, label: 'Feb' },
-  { value: 720, label: '' },
-
-  { value: 675, label: 'Mar' },
-  { value: 705, label: '' },
-
-  { value: 710, label: 'Apr' },
-  { value: 690, label: '' },
-
-  { value: 745, label: 'May' },
-  { value: 725, label: '' },
-
-  { value: 735, label: 'Jun' },
-  { value: 720, label: '' },
-
-  { value: 730, label: 'Jul' },
+const creditScoreHistory = [
+  {
+    label: 'Jan',
+    score: 660,
+    changeFromPrevious: +10,
+    status: 'Good',
+    updatedAt: '2024-01-05',
+    type:"increment"
+  },
+  {
+    label: 'Feb',
+    score: 690,
+    changeFromPrevious: +30,
+    status: 'Good',
+    updatedAt: '2024-02-05',
+    type:"increment"
+  },
+  {
+    label: 'Mar',
+    score: 675,
+    changeFromPrevious: -15,
+    status: 'Fair',
+    updatedAt: '2024-03-05',
+    type:"decrement"
+  },
+  {
+    label: 'Apr',
+    score: 710,
+    changeFromPrevious: +35,
+    status: 'Very Good',
+    updatedAt: '2024-04-05',
+    type:"increment"
+  },
+  {
+    label: 'May',
+    score: 745,
+    changeFromPrevious: +35,
+    status: 'Very Good',
+    updatedAt: '2024-05-05',
+    type:"increment"
+  },
+  {
+    label: 'Jun',
+    score: 735,
+    changeFromPrevious: -10,
+    status: 'Good',
+    updatedAt: '2024-06-05',
+    type:"decrement"
+  },
+  {
+    label: 'Jul',
+    score: 730,
+    changeFromPrevious: -5,
+    status: 'Good',
+    updatedAt: '2024-07-05',
+    type:"decrement"
+  },
 ];
+
+const Y_AXIS_OFFSET = 650; 
+const lineChartData = creditScoreHistory?.map(item => ({
+  label: item?.label,
+  value: item?.score, 
+}))
+const latestScoreData = creditScoreHistory[creditScoreHistory.length - 1];
+
+const [currentScore, setCurrentScore] = useState(latestScoreData.score);
+const [currentStatus, setCurrentStatus] = useState(latestScoreData.status);
+const [ptsChange, setPtsChange] = useState(
+  `${latestScoreData.changeFromPrevious > 0 ? '+' : ''}${latestScoreData.changeFromPrevious} pts`
+);
+const [updateDate, setUpdateDate] = useState(
+  `Updated on ${latestScoreData.updatedAt}`
+);
+
+
+
+
+  const [currentType, setCurrentType] = useState<'increment' | 'decrement'>(latestScoreData.type as 'increment' | 'decrement');
 
   const actionData = [
     { id: 1, title: "Pay\nMoney", color: "#346AFD", icon: CardIcon },
@@ -77,6 +134,7 @@ const HomePage = () => {
     );
   }
 
+
   return (
     <AppLayout topColor={lightColor.background} bottomColor={lightColor.background} scrollable={false}>
       <View style={styles.container}>
@@ -86,9 +144,13 @@ const HomePage = () => {
         >
           
         
-          <View style={styles.header}>
+          <View style={styles.header}>  
             <View>
-              <Text style={styles.greetingText}>Hi, Sarah</Text>
+              <Text 
+              style={styles.greetingText} 
+              ellipsizeMode='tail'
+              numberOfLines={1} 
+              >Hi, {user?.firstName}</Text>
               <Text style={styles.subtitleText}>Your credit in excellent shape!</Text>
             </View>
             <TouchableOpacity style={styles.notificationContainer} activeOpacity={0.7}>
@@ -97,7 +159,15 @@ const HomePage = () => {
           </View>
 
           <View style={[styles.scoreCard, { paddingBottom: moderateScale(10) }]}>
-              <CreditScoreGauge score={currentScore} />
+              <CreditScoreGauge 
+              score={currentScore} 
+               
+             
+  statusText={currentStatus}
+  ptsChange={ptsChange}
+  updateDate={updateDate}
+  type={currentType}
+              />
           </View>
 
           <View style={styles.actionCard}>
@@ -111,28 +181,51 @@ const HomePage = () => {
               <Text style={styles.sectionTitle}>Credit Score History</Text>
               <View style={styles.historyCard}>
                 <LineChart
-                    data={lineData}
-                    height={verticalScale(140)}
-                    width={width - scale(110)}
-                    initialSpacing={scale(10)}
-                    spacing={(width - scale(110)) / 12}
-                    color={lightColor.primary}
-                    thickness={3}
-                    noOfSections={4}
-                    stepValue={50}
-                    yAxisOffset={650}
-                    yAxisColor="transparent"
-                    xAxisColor="#F0F0F0"
-                    yAxisThickness={0}
-                    xAxisThickness={1}
-                    rulesColor="#F0F0F0"
-                    rulesType="solid"
-                    dataPointsColor={lightColor.primary}
-                    curved
-                    yAxisTextStyle={{ color: '#BBB', fontSize: moderateScale(10) }}
-                    xAxisLabelTextStyle={{ color: '#999', fontSize: moderateScale(10) }}
-                    hideDataPoints
-                />
+  data={lineChartData}
+  height={verticalScale(140)}
+  width={width - scale(110)}
+  initialSpacing={scale(20)}
+  spacing={scale(30)}
+  color={lightColor.primary}
+  thickness={3}
+  noOfSections={4}
+  stepValue={50}
+  yAxisOffset={650}
+  yAxisColor="transparent"
+  xAxisColor="#F0F0F0"
+  yAxisThickness={0}
+  xAxisThickness={1}
+  rulesColor="#F0F0F0"
+  rulesType="solid"
+  curved
+
+  yAxisTextStyle={{ color: '#BBB', fontSize: moderateScale(10) }}
+  xAxisLabelTextStyle={{ color: '#999', fontSize: moderateScale(10) }}
+
+  dataPointsColor={lightColor.primary}
+  dataPointsRadius={moderateScale(5)}
+
+  focusEnabled
+  showDataPointOnFocus
+  showStripOnFocus
+
+  stripColor={lightColor.primary + '40'}
+
+  onFocus={(item: any, index: number) => {
+    const actualScore = item.value + Y_AXIS_OFFSET;
+    const selected = creditScoreHistory[index];
+
+    setCurrentScore(actualScore);
+    setCurrentStatus(selected.status);
+    setPtsChange(
+      `${selected.changeFromPrevious > 0 ? '+' : ''}${selected.changeFromPrevious} pts`
+    );
+    setUpdateDate(`Updated on ${selected.updatedAt}`);
+    setCurrentType(selected.type as 'increment' | 'decrement');
+  }}
+/>
+
+
               </View>
           </View>
 

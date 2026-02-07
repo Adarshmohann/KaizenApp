@@ -32,9 +32,8 @@ const LoginPageStyles = () => {
         },
         phoneInputContainer: {
             flexDirection: 'row',
-            alignItems: 'center',
+            alignItems: 'flex-start',
             width: '100%',
-            marginBottom: verticalScale(15),
         },
         countryPickerButton: {
             flexDirection: 'row',

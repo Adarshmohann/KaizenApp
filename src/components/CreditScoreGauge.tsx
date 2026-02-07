@@ -11,6 +11,7 @@ interface CreditScoreGaugeProps {
   statusText?: string;
   ptsChange?: string;
   updateDate?: string;
+  type?: 'increment' | 'decrement';
 }
 
 const CreditScoreGauge: React.FC<CreditScoreGaugeProps> = ({
@@ -20,6 +21,7 @@ const CreditScoreGauge: React.FC<CreditScoreGaugeProps> = ({
   statusText = "Good",
   ptsChange = "+6pts",
   updateDate = "update on 02 Oct 2024",
+  type
 }) => {
   const radius = moderateScale(135);
   const strokeWidth = moderateScale(6);
@@ -93,7 +95,7 @@ const CreditScoreGauge: React.FC<CreditScoreGaugeProps> = ({
         <View style={styles.textContainer}>
           <Text style={styles.statusText}>{statusText}</Text>
           <Text style={styles.scoreText}>{score}</Text>
-          <Text style={styles.ptsText}>{ptsChange}</Text>
+          <Text style={[styles.ptsText, { color: type === 'decrement' ? '#ff4d4d' : '#4dce6e' }]}>{ptsChange}</Text>
         </View>
 
         <View style={[styles.footerRow, { width: radius * 2 + moderateScale(10) }]}>

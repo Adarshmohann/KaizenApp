@@ -7,7 +7,7 @@ import {
     View,
 } from 'react-native';
 import { CountryPicker } from 'react-native-country-codes-picker';
-import { moderateScale } from 'react-native-size-matters';
+import { moderateScale, verticalScale } from 'react-native-size-matters';
 import FingerPrintIcon from '../../../assets/svgs/fingerprintIcon';
 import CustomButton from '../../../components/CustomButton';
 import CustomSwitch from '../../../components/CustomSwitch';
@@ -18,20 +18,45 @@ import LoginPageStyles from './styles';
 
 const { height } = Dimensions.get('window');
 
-import { setAuthenticated } from '../../../redux/slices/authSlice';
+import { setAuthenticated, setUser } from '../../../redux/slices/authSlice';
 import { useAppDispatch } from '../../../utils/hooks';
+
+import { Controller, useForm } from 'react-hook-form';
+
+type FormData = {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+};
 
 const LoginPage = () => {
     const styles = LoginPageStyles();
     const [keepLoggedIn, setKeepLoggedIn] = useState(false);
-    const [countryCode, setCountryCode] = useState('US');
-    const [callingCode, setCallingCode] = useState('+1');
-    const [flag, setFlag] = useState('🇺🇸');
+    const [countryCode, setCountryCode] = useState('IN');
+    const [callingCode, setCallingCode] = useState('+91');
+    const [flag, setFlag] = useState('🇮🇳');
     const [show, setShow] = useState(false);
     
+    const { control, handleSubmit, formState: { errors } } = useForm<FormData>({
+        defaultValues: {
+            firstName: '',
+            lastName: '',
+            email: '',
+            phoneNumber: '',
+        }
+    });
+
     const dispatch = useAppDispatch();
 
-    const handleLogin = () => {
+    const onSubmit = (data: FormData) => {
+        dispatch(setUser({
+            id: '1',
+            firstName: data.firstName,
+            lastName: data.lastName,
+            email: data.email,
+            phoneNumber: data.phoneNumber,
+        }));
         dispatch(setAuthenticated(true));
     };
 
@@ -60,7 +85,7 @@ const LoginPage = () => {
                         Phone Number<Text style={{ color: 'red' }}>*</Text>
                     </Text>
                     
-                    <View style={styles.phoneInputContainer}>
+                    <View style={[styles.phoneInputContainer,{}]}>
                         <TouchableOpacity 
                             style={styles.countryPickerButton}
                             activeOpacity={0.7}
@@ -89,30 +114,92 @@ const LoginPage = () => {
                             />
                         </TouchableOpacity>
 
-                        <CustomTextInput
-                            placeholder="Enter Your Phone Number"
-                            keyboardType="phone-pad"
-                            containerStyle={{ flex: 1, marginBottom: 0 }}
-                        />
+                        <View style={{ flex: 1 }}>
+                            <Controller
+                                control={control}
+                                rules={{
+                                    required: 'Phone Number is required',
+                                    minLength: {
+                                        value: 10,
+                                        message: 'Phone Number must be at least 10 digits',
+                                    },
+                                }}
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <CustomTextInput
+                                        placeholder="Enter Your Phone Number"
+                                        keyboardType="phone-pad"
+                                        containerStyle={{ marginBottom: verticalScale(15) }}
+                                        onBlur={onBlur}
+                                        onChangeText={onChange}
+                                        value={value}
+                                        error={errors.phoneNumber?.message}
+                                    />
+                                )}
+                                name="phoneNumber"
+                            />
+                        </View>
                     </View>
 
-                    <CustomTextInput
-                        label="First Name"
-                        placeholder="Enter Your First Name"
-                        required
+                    <Controller
+                        control={control}
+                        rules={{
+                            required: 'First Name is required',
+                        }}
+                        render={({ field: { onChange, onBlur, value } }) => (
+                            <CustomTextInput
+                                label="First Name"
+                                placeholder="Enter Your First Name"
+                                required
+                                onBlur={onBlur}
+                                onChangeText={onChange}
+                                value={value}
+                                error={errors.firstName?.message}
+                            />
+                        )}
+                        name="firstName"
                     />
 
-                    <CustomTextInput
-                        label="Last Name"
-                        placeholder="Enter Your Last Name"
-                        required
+                    <Controller
+                        control={control}
+                        rules={{
+                            required: 'Last Name is required',
+                        }}
+                        render={({ field: { onChange, onBlur, value } }) => (
+                            <CustomTextInput
+                                label="Last Name"
+                                placeholder="Enter Your Last Name"
+                                required
+                                onBlur={onBlur}
+                                onChangeText={onChange}
+                                value={value}
+                                error={errors.lastName?.message}
+                            />
+                        )}
+                        name="lastName"
                     />
 
-                    <CustomTextInput
-                        label="Email Address"
-                        placeholder="Enter Your Email"
-                        keyboardType="email-address"
-                        required
+                    <Controller
+                        control={control}
+                        rules={{
+                            required: 'Email Address is required',
+                            pattern: {
+                                value: /\S+@\S+\.\S+/,
+                                message: 'Email Address is invalid',
+                            },
+                        }}
+                        render={({ field: { onChange, onBlur, value } }) => (
+                            <CustomTextInput
+                                label="Email Address"
+                                placeholder="Enter Your Email"
+                                keyboardType="email-address"
+                                required
+                                onBlur={onBlur}
+                                onChangeText={onChange}
+                                value={value}
+                                error={errors.email?.message}
+                            />
+                        )}
+                        name="email"
                     />
 
                    
@@ -128,7 +215,7 @@ const LoginPage = () => {
                     
                     <CustomButton
                         title="Log In"
-                        onPress={handleLogin}
+                        onPress={handleSubmit(onSubmit)}
                         style={{ marginTop: 10 }}
                     />
 

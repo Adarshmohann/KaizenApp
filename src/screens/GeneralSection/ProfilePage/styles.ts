@@ -104,6 +104,60 @@ const ProfilePageStyles = () => {
       color: '#B0BCC7',
       marginTop: verticalScale(2),
     },
+    modalOverlay: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalContainer: {
+      width: '80%',
+      backgroundColor: 'white',
+      borderRadius: moderateScale(20),
+      padding: moderateScale(20),
+      alignItems: 'center',
+      elevation: 5,
+    },
+    modalTitle: {
+      fontSize: moderateScale(18),
+      fontWeight: 'bold',
+      marginBottom: verticalScale(10),
+      color: lightColor.black,
+    },
+    modalMessage: {
+      fontSize: moderateScale(14),
+      color: lightColor.gray,
+      textAlign: 'center',
+      marginBottom: verticalScale(20),
+    },
+    modalButtonContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: '100%',
+    },
+    modalButton: {
+      flex: 1,
+      paddingVertical: verticalScale(10),
+      borderRadius: moderateScale(10),
+      alignItems: 'center',
+      marginHorizontal: scale(5),
+    },
+    cancelButton: {
+      backgroundColor: '#f0f0f0',
+    },
+    logoutButton: {
+      backgroundColor: '#FF4D4D',
+    },
+    cancelButtonText: {
+      fontSize: moderateScale(14),
+      fontWeight: '600',
+      color: lightColor.black,
+    },
+    logoutButtonText: {
+      fontSize: moderateScale(14),
+      fontWeight: '600',
+      color: 'white',
+    },
   });
 };
 

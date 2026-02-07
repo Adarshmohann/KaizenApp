@@ -19,6 +19,7 @@ const HomePageStyles = () => {
       fontSize: moderateScale(22),
       fontWeight: 'bold',
       color: lightColor.black,
+      maxWidth: moderateScale(200)
     },
     subtitleText: {
       fontSize: moderateScale(13),
