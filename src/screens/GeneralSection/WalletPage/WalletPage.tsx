@@ -10,11 +10,14 @@ const WalletPage = () => {
   const navigation = useNavigation<any>();
 
   return (
-    <AppLayout topColor={lightColor.background} bottomColor={lightColor.background}>
+    <AppLayout
+      topColor={lightColor.background}
+      bottomColor={lightColor.background}
+    >
       <View style={styles.container}>
-        <AppHeader 
-          title="Wallet" 
-          titleAlign="left" 
+        <AppHeader
+          title="Wallet"
+          titleAlign="left"
           onLeftPress={() => navigation.navigate('History')}
           onRightPress={() => navigation.navigate('Profile')}
         />
@@ -37,7 +40,7 @@ const styles = StyleSheet.create({
   },
   placeholderText: {
     color: '#999',
-  }
+  },
 });
 
 export default WalletPage;

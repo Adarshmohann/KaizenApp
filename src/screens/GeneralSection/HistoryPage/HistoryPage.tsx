@@ -10,11 +10,14 @@ const HistoryPage = () => {
   const navigation = useNavigation<any>();
 
   return (
-    <AppLayout topColor={lightColor.background} bottomColor={lightColor.background}>
+    <AppLayout
+      topColor={lightColor.background}
+      bottomColor={lightColor.background}
+    >
       <View style={styles.container}>
-        <AppHeader 
-          title="History" 
-          titleAlign="left" 
+        <AppHeader
+          title="History"
+          titleAlign="left"
           onLeftPress={() => navigation.navigate('Message')}
           onRightPress={() => navigation.navigate('Wallet')}
         />
@@ -37,7 +40,7 @@ const styles = StyleSheet.create({
   },
   placeholderText: {
     color: '#999',
-  }
+  },
 });
 
 export default HistoryPage;

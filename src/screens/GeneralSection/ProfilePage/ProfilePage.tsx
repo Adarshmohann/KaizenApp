@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, Image, TouchableOpacity, Alert, Modal } from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+  Alert,
+  Modal,
+} from 'react-native';
 import AppLayout from '../../../layouts/AppLayout';
 import { lightColor } from '../../../theme/colors';
 import AppHeader from '../../../components/AppHeader';
@@ -62,41 +70,40 @@ const ProfilePage = () => {
   ];
 
   return (
-    <AppLayout 
-    topColor={lightColor.background} 
-    bottomColor={lightColor.background} 
-    behaviour={null}>
-      <View style={[styles.container,{}]}>
-        <AppHeader 
-          title="Profile" 
-          titleAlign="left" 
+    <AppLayout
+      topColor={lightColor.background}
+      bottomColor={lightColor.background}
+      behaviour={null}
+    >
+      <View style={[styles.container, {}]}>
+        <AppHeader
+          title="Profile"
+          titleAlign="left"
           onLeftPress={() => navigation.navigate('Wallet')}
           onRightPress={() => navigation.navigate('Home')}
         />
 
-        <View style={[styles.contentWrapper,{}]}>
-          <ScrollView 
-          showsVerticalScrollIndicator={false} 
-          contentContainerStyle={styles.scrollContent}>
-            
-            
+        <View style={[styles.contentWrapper, {}]}>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.scrollContent}
+          >
             <View style={styles.profileImageContainer}>
               <View style={styles.imageWrapper}>
-                <Image 
-                  source={require('../../../assets/images/profileImage.png')} 
-                  style={styles.profileImage} 
+                <Image
+                  source={require('../../../assets/images/profileImage.png')}
+                  style={styles.profileImage}
                 />
               </View>
-              <Text style={styles.userName}>{user ? `${user.firstName} ${user.lastName}` : 'User'}</Text>
+              <Text style={styles.userName}>
+                {user ? `${user.firstName} ${user.lastName}` : 'User'}
+              </Text>
             </View>
 
-            
             <View style={styles.infoSection}>
               {infoItems?.map((item, index) => (
                 <View key={index} style={styles.infoItem}>
-                  <View style={styles.iconContainer}>
-                    {item.icon}
-                  </View>
+                  <View style={styles.iconContainer}>{item.icon}</View>
                   <View style={styles.infoTextContainer}>
                     <Text style={styles.infoLabel}>{item.label}</Text>
                     <Text style={styles.infoValue}>{item.value}</Text>
@@ -105,64 +112,79 @@ const ProfilePage = () => {
               ))}
             </View>
 
-            
             <View style={styles.sectionDivider}>
               <Text style={styles.sectionTitle}>Security</Text>
-              
+
               <View style={styles.settingItem}>
                 <View style={styles.iconContainer}>
-                  <SmileIcon stroke={lightColor.primary} width={20} height={20} />
+                  <SmileIcon
+                    stroke={lightColor.primary}
+                    width={20}
+                    height={20}
+                  />
                 </View>
                 <View style={styles.settingTextContainer}>
                   <Text style={styles.settingLabel}>Face ID</Text>
-                  <Text style={styles.settingSubtext}>Use Face ID to unlock the app</Text>
+                  <Text style={styles.settingSubtext}>
+                    Use Face ID to unlock the app
+                  </Text>
                 </View>
-                <CustomSwitch 
-                  value={faceIdEnabled} 
-                  onValueChange={setFaceIdEnabled} 
+                <CustomSwitch
+                  value={faceIdEnabled}
+                  onValueChange={setFaceIdEnabled}
                 />
               </View>
 
               <View style={styles.settingItem}>
                 <View style={styles.iconContainer}>
-                  <FingerprintIcon stroke={lightColor.primary} width={20} height={20} />
+                  <FingerprintIcon
+                    stroke={lightColor.primary}
+                    width={20}
+                    height={20}
+                  />
                 </View>
                 <View style={styles.settingTextContainer}>
                   <Text style={styles.settingLabel}>Fingerprint</Text>
-                  <Text style={styles.settingSubtext}>Use Fingerprint to unlock the app</Text>
+                  <Text style={styles.settingSubtext}>
+                    Use Fingerprint to unlock the app
+                  </Text>
                 </View>
-                <CustomSwitch 
-                  value={fingerprintEnabled} 
-                  onValueChange={setFingerprintEnabled} 
+                <CustomSwitch
+                  value={fingerprintEnabled}
+                  onValueChange={setFingerprintEnabled}
                 />
               </View>
             </View>
 
-           
             <View style={styles.sectionDivider}>
               <Text style={styles.sectionTitle}>Appearance</Text>
-              
+
               <View style={styles.settingItem}>
                 <View style={styles.iconContainer}>
-                  <MoonIcon stroke={lightColor.primary} width={20} height={20} />
+                  <MoonIcon
+                    stroke={lightColor.primary}
+                    width={20}
+                    height={20}
+                  />
                 </View>
                 <View style={styles.settingTextContainer}>
                   <Text style={styles.settingLabel}>Dark Mode</Text>
-                  <Text style={styles.settingSubtext}>Enable dark mode theme</Text>
+                  <Text style={styles.settingSubtext}>
+                    Enable dark mode theme
+                  </Text>
                 </View>
-                <CustomSwitch 
-                  value={darkModeEnabled} 
-                  onValueChange={setDarkModeEnabled} 
+                <CustomSwitch
+                  value={darkModeEnabled}
+                  onValueChange={setDarkModeEnabled}
                 />
               </View>
             </View>
 
-            <CustomButton 
-              title="Logout" 
+            <CustomButton
+              title="Logout"
               onPress={handleLogout}
               style={{ marginTop: 20, backgroundColor: '#FF4D4D' }}
             />
-
           </ScrollView>
         </View>
 
@@ -175,18 +197,20 @@ const ProfilePage = () => {
           <View style={styles.modalOverlay}>
             <View style={styles.modalContainer}>
               <Text style={styles.modalTitle}>Logout</Text>
-              <Text style={styles.modalMessage}>Are you sure you want to logout?</Text>
-              
+              <Text style={styles.modalMessage}>
+                Are you sure you want to logout?
+              </Text>
+
               <View style={styles.modalButtonContainer}>
-                <TouchableOpacity 
-                  style={[styles.modalButton, styles.cancelButton]} 
+                <TouchableOpacity
+                  style={[styles.modalButton, styles.cancelButton]}
                   onPress={() => setShowLogoutModal(false)}
                 >
                   <Text style={styles.cancelButtonText}>Cancel</Text>
                 </TouchableOpacity>
-                
-                <TouchableOpacity 
-                  style={[styles.modalButton, styles.logoutButton]} 
+
+                <TouchableOpacity
+                  style={[styles.modalButton, styles.logoutButton]}
                   onPress={confirmLogout}
                 >
                   <Text style={styles.logoutButtonText}>Logout</Text>
