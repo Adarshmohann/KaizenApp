@@ -16,3 +16,12 @@ export interface Message {
   image: string;
   date: string;
 }
+
+export interface CreditScoreHistoryItem {
+    label: string;
+    score: number;
+    changeFromPrevious: number;
+    status: string;
+    updatedAt: string;
+    type: 'increment' | 'decrement';
+}

@@ -11,77 +11,24 @@ import CreditScoreGauge from '../../../components/CreditScoreGauge';
 import AppLayout from '../../../layouts/AppLayout';
 import { lightColor } from '../../../theme/colors';
 import HomePageStyles from './styles';
-import { useAppSelector } from '../../../utils/hooks';
+import { useAppSelector, useAppDispatch } from '../../../utils/hooks';
 import { RootState } from '../../../redux/store';
+
 
 const { width } = Dimensions.get('window');
 
 const HomePage = () => {
   const styles = HomePageStyles();
+  const dispatch = useAppDispatch();
   const { user } = useAppSelector((state: RootState) => state.userData);
 
 
   
 
 
-const creditScoreHistory = [
-  {
-    label: 'Jan',
-    score: 660,
-    changeFromPrevious: +10,
-    status: 'Good',
-    updatedAt: '2024-01-05',
-    type:"increment"
-  },
-  {
-    label: 'Feb',
-    score: 690,
-    changeFromPrevious: +30,
-    status: 'Good',
-    updatedAt: '2024-02-05',
-    type:"increment"
-  },
-  {
-    label: 'Mar',
-    score: 675,
-    changeFromPrevious: -15,
-    status: 'Fair',
-    updatedAt: '2024-03-05',
-    type:"decrement"
-  },
-  {
-    label: 'Apr',
-    score: 710,
-    changeFromPrevious: +35,
-    status: 'Very Good',
-    updatedAt: '2024-04-05',
-    type:"increment"
-  },
-  {
-    label: 'May',
-    score: 745,
-    changeFromPrevious: +35,
-    status: 'Very Good',
-    updatedAt: '2024-05-05',
-    type:"increment"
-  },
-  {
-    label: 'Jun',
-    score: 735,
-    changeFromPrevious: -10,
-    status: 'Good',
-    updatedAt: '2024-06-05',
-    type:"decrement"
-  },
-  {
-    label: 'Jul',
-    score: 730,
-    changeFromPrevious: -5,
-    status: 'Good',
-    updatedAt: '2024-07-05',
-    type:"decrement"
-  },
-];
+  const creditScoreHistory = useAppSelector((state: RootState) => state.creditData.history);
+
+  
 
 const Y_AXIS_OFFSET = 650; 
 const lineChartData = creditScoreHistory?.map(item => ({
@@ -232,7 +179,7 @@ const [updateDate, setUpdateDate] = useState(
         </ScrollView>
         
         
-        <TouchableOpacity style={styles.fab} activeOpacity={0.8}>
+        <TouchableOpacity style={styles.fab} activeOpacity={0.8} onPress={() => {}}>
             <Text style={styles.fabText}>+</Text>
         </TouchableOpacity> 
 
