@@ -7,9 +7,11 @@ import SearchBar from '../../../components/SearchBar';
 import CustomButton from '../../../components/CustomButton';
 import MessagePageStyles from './styles';
 import { Message } from '../../../types/models';
+import { useNavigation } from '@react-navigation/native';
 
 const MessagePage = () => {
     const styles = MessagePageStyles();
+    const navigation = useNavigation<any>();
 
     const todayStr = new Date().toISOString().split('T')[0];
 
@@ -104,7 +106,12 @@ const MessagePage = () => {
         behaviour={null}
         >
             <View style={styles.container}>
-                <AppHeader title="Messages" titleAlign="left" />
+                <AppHeader 
+                    title="Messages" 
+                    titleAlign="left" 
+                    onLeftPress={() => navigation.navigate('Home')}
+                    onRightPress={() => navigation.navigate('History')}
+                />
                 
                 <View style={styles.contentWrapper}>
                     <SearchBar placeholder="Search Your messages" />

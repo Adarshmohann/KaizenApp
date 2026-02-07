@@ -1,18 +1,16 @@
 import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
-import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
-import AppLayout from '../../../layouts/AppLayout';
-import HomePageStyles from './styles';
-import { lightColor } from '../../../theme/colors';
-import NotificationIcon from '../../../assets/svgs/notificationIcon';
-import CardIcon from '../../../assets/svgs/cardIcon';
-import LoanIcon from '../../../assets/svgs/loanIcon';
-import ChatIcon from '../../../assets/svgs/chatIcon';
-import FinanceIcon from '../../../assets/svgs/financeIcon';
-import CalendarIcon from '../../../assets/svgs/calendarIcon';
-import CreditScoreGauge from '../../../components/CreditScoreGauge';
+import { Dimensions, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { LineChart } from "react-native-gifted-charts";
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
+import CardIcon from '../../../assets/svgs/cardIcon';
 import chatSupportIcon from '../../../assets/svgs/chatSupportIcon';
+import FinanceIcon from '../../../assets/svgs/financeIcon';
+import LoanIcon from '../../../assets/svgs/loanIcon';
+import NotificationIcon from '../../../assets/svgs/notificationIcon';
+import CreditScoreGauge from '../../../components/CreditScoreGauge';
+import AppLayout from '../../../layouts/AppLayout';
+import { lightColor } from '../../../theme/colors';
+import HomePageStyles from './styles';
 
 const { width } = Dimensions.get('window');
 
@@ -20,29 +18,34 @@ const HomePage = () => {
   const styles = HomePageStyles();
 
   const currentScore = 730;
-  const minScore = 400;
-  const maxScore = 850;
+
 
   interface LineDataPoint {
     value: number;
     label: string;
   }
 
-  const lineData: LineDataPoint[] = [
-    { value: 650, label: 'Jan' },
-    { value: 720, label: '' },
-    { value: 680, label: 'Feb' },
-    { value: 740, label: '' },
-    { value: 660, label: 'Mar' },
-    { value: 750, label: '' },
-    { value: 700, label: 'Apr' },
-    { value: 710, label: '' },
-    { value: 680, label: 'May' },
-    { value: 780, label: '' },
-    { value: 720, label: 'Jun' },
-    { value: 760, label: '' },
-    { value: 740, label: 'Jul' },
-  ];
+ const lineData: LineDataPoint[] = [
+  { value: 660, label: 'Jan' },
+  { value: 700, label: '' },
+
+  { value: 690, label: 'Feb' },
+  { value: 720, label: '' },
+
+  { value: 675, label: 'Mar' },
+  { value: 705, label: '' },
+
+  { value: 710, label: 'Apr' },
+  { value: 690, label: '' },
+
+  { value: 745, label: 'May' },
+  { value: 725, label: '' },
+
+  { value: 735, label: 'Jun' },
+  { value: 720, label: '' },
+
+  { value: 730, label: 'Jul' },
+];
 
   const actionData = [
     { id: 1, title: "Pay\nMoney", color: "#346AFD", icon: CardIcon },
@@ -55,10 +58,10 @@ const HomePage = () => {
     let iconWidth = moderateScale(22);
     let iconHeight = moderateScale(22);
 
-    // Adjust specific icon sizes to look balanced since their stroke paths vary
-    if (id === 1) iconHeight = moderateScale(18); // Card is wider than tall
-    if (id === 2) iconWidth = moderateScale(19);  // Loan is taller than wide
-    if (id === 3) iconHeight = moderateScale(21); // Chat is almost square
+   
+    if (id === 1) iconHeight = moderateScale(18);
+    if (id === 2) iconWidth = moderateScale(19);  
+    if (id === 3) iconHeight = moderateScale(21); 
     if (id === 4) { iconWidth = moderateScale(21); iconHeight = moderateScale(21); } // Finance is square
 
     return (
@@ -77,7 +80,10 @@ const HomePage = () => {
   return (
     <AppLayout topColor={lightColor.background} bottomColor={lightColor.background} scrollable={false}>
       <View style={styles.container}>
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView 
+          showsVerticalScrollIndicator={false} 
+          contentContainerStyle={{ paddingHorizontal: scale(20) }}
+        >
           
         
           <View style={styles.header}>
@@ -112,11 +118,9 @@ const HomePage = () => {
                     spacing={(width - scale(110)) / 12}
                     color={lightColor.primary}
                     thickness={3}
-                    startFillColor={lightColor.primary}
-                    endFillColor="rgba(52,106,253,0.01)"
-                    startOpacity={0.2}
-                    endOpacity={0.01}
                     noOfSections={4}
+                    stepValue={50}
+                    yAxisOffset={650}
                     yAxisColor="transparent"
                     xAxisColor="#F0F0F0"
                     yAxisThickness={0}
@@ -125,11 +129,9 @@ const HomePage = () => {
                     rulesType="solid"
                     dataPointsColor={lightColor.primary}
                     curved
-                    areaChart
                     yAxisTextStyle={{ color: '#BBB', fontSize: moderateScale(10) }}
                     xAxisLabelTextStyle={{ color: '#999', fontSize: moderateScale(10) }}
                     hideDataPoints
-                    maxValue={850}
                 />
               </View>
           </View>

@@ -11,6 +11,7 @@ import SmileIcon from '../../../assets/svgs/smileIcon';
 import FingerprintIcon from '../../../assets/svgs/fingerprintIcon';
 import MoonIcon from '../../../assets/svgs/moonIcon';
 import CalendarIcon from '../../../assets/svgs/calendarIcon';
+import { useNavigation } from '@react-navigation/native';
 
 interface InfoItem {
   label: string;
@@ -19,6 +20,7 @@ interface InfoItem {
 }
 
 const ProfilePage = () => {
+  const navigation = useNavigation<any>();
   const styles = ProfilePageStyles();
   const [faceIdEnabled, setFaceIdEnabled] = useState<boolean>(false);
   const [fingerprintEnabled, setFingerprintEnabled] = useState<boolean>(false);
@@ -43,12 +45,22 @@ const ProfilePage = () => {
   ];
 
   return (
-    <AppLayout topColor={lightColor.background} bottomColor={lightColor.background} behaviour={null}>
+    <AppLayout 
+    topColor={lightColor.background} 
+    bottomColor={lightColor.background} 
+    behaviour={null}>
       <View style={[styles.container,{}]}>
-        <AppHeader title="Profile" titleAlign="left" />
+        <AppHeader 
+          title="Profile" 
+          titleAlign="left" 
+          onLeftPress={() => navigation.navigate('Wallet')}
+          onRightPress={() => navigation.navigate('Home')}
+        />
 
-        <View style={styles.contentWrapper}>
-          <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
+        <View style={[styles.contentWrapper,{}]}>
+          <ScrollView 
+          showsVerticalScrollIndicator={false} 
+          contentContainerStyle={styles.scrollContent}>
             
             
             <View style={styles.profileImageContainer}>

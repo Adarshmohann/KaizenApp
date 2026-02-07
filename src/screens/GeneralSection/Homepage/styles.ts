@@ -7,13 +7,12 @@ const HomePageStyles = () => {
     container: {
       flex: 1,
       backgroundColor: lightColor.background,
-      paddingHorizontal: scale(20),
     },
     header: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginTop: verticalScale(20),
+      marginTop: verticalScale(10),
       marginBottom: verticalScale(20),
     },
     greetingText: {
