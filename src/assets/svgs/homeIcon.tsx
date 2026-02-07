@@ -1,21 +1,21 @@
+
 import * as React from "react";
 import Svg, { Path } from "react-native-svg";
 const HomeIcon = (props:any) => (
   <Svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={props?.width??24}
+    width={ props?.width??24}
     height={props?.height??24}
     viewBox="0 0 24 24"
-    fill={props?.fill??"none"}
-    stroke={props?.stroke??"currentColor"}
-    strokeWidth={props?.strokeWidth??2}
-    strokeLinecap={props?.strokeLinecap??"round"}
-    strokeLinejoin={props?.strokeLinejoin??"round"}
-    className="lucide lucide-house-icon lucide-house"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <Path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
-    <Path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+    <Path
+      d="M9.09644 3.31476C10.3496 2.34403 12.3345 2.23587 13.7234 3.02863L13.9929 3.19952L19.7537 7.2298C20.2227 7.55826 20.6665 8.09692 20.9939 8.72394C21.3213 9.35112 21.5095 10.0242 21.5095 10.5999V17.3802C21.5094 19.6538 19.664 21.5001 17.3904 21.5003H6.61011C4.3378 21.5003 2.49022 19.6455 2.48999 17.3704V10.47L2.4978 10.265C2.53449 9.77632 2.69782 9.22066 2.95874 8.69073C3.25678 8.08546 3.66124 7.55653 4.08765 7.22394L9.09644 3.31476ZM11.9998 13.7503C11.3137 13.7504 10.7498 14.3142 10.7498 15.0003V18.0003C10.7499 18.6862 11.3138 19.2502 11.9998 19.2503C12.6858 19.2503 13.2496 18.6863 13.2498 18.0003V15.0003C13.2498 14.3142 12.6859 13.7503 11.9998 13.7503Z"
+      fill= {props?.fill??"#346AFD"}
+      stroke={props?.stroke??"#346AFD"}
+    />
   </Svg>
 );
 export default HomeIcon;
+

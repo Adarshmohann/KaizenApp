@@ -9,87 +9,110 @@ import WalletIcon from '../assets/svgs/walletIcon';
 import { BlurView } from '@react-native-community/blur';
 
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const { width } = Dimensions.get('window');
 
 const CustomBottomTab = ({ state, descriptors, navigation }: BottomTabBarProps) => {
+
+  const insets = useSafeAreaInsets();
+  
   return (
-    <View style={styles.container}>
-      <BlurView
-        style={styles.blurWrapper}
-        blurType="light"
-        blurAmount={80} // Increased blur amount
-        reducedTransparencyFallbackColor="white"
-      />
-      <View style={styles.tabBar}>
-        {state.routes.map((route, index: number) => {
-          const { options } = descriptors[route.key];
-          const isFocused = state.index === index;
+    <View style={[styles.outerWrapper, { paddingBottom: Math.max(insets.bottom, verticalScale(15)) }]}>
+        <View style={styles.container}>
+          <BlurView
+            style={styles.blurWrapper}
+            blurType="light"
+            blurAmount={80} 
+            reducedTransparencyFallbackColor="white"
+          />
+          <View style={styles.tabBar}>
+            {state.routes.map((route, index: number) => {
+              const { options } = descriptors[route.key];
+              const isFocused = state.index === index;
 
-          const onPress = () => {
-            const event = navigation.emit({
-              type: 'tabPress',
-              target: route.key,
-              canPreventDefault: true,
-            });
+              const onPress = () => {
+                const event = navigation.emit({
+                  type: 'tabPress',
+                  target: route.key,
+                  canPreventDefault: true,
+                });
 
-            if (!isFocused && !event.defaultPrevented) {
-              navigation.navigate(route.name);
-            }
-          };
+                if (!isFocused && !event.defaultPrevented) {
+                  navigation.navigate(route.name);
+                }
+              };
 
-          const Icon = () => {
-              const color = isFocused ? lightColor.primary : '#4E5F7E';
-              const fill = isFocused ? lightColor.primary : 'none';
-              const size = moderateScale(24);
+              const Icon = () => {
+              const activeColor = lightColor.primary;
+              const inactiveColor = '#9BA5B7';
+              const isProfile = route.name === 'Profile';
+
+              if (isProfile) {
+                return (
+                  <View style={[styles.avatarContainer, isFocused && styles.activeAvatar]}>
+                    <Image 
+                      source={require('../assets/images/profileImage.png')} 
+                      style={styles.avatar} 
+                    />
+                  </View>
+                );
+              }
+
+              const iconColor = isFocused ? activeColor : inactiveColor;
+              const iconFill = isFocused ? activeColor : 'none';
               
               switch(route.name) {
-                case 'Home': return <HomeIcon stroke={color} width={size} height={size} fill={fill} />;
-                case 'Message': return <ChatIcon stroke={color} width={size} height={size} fill={fill} />;
-                case 'History': return <StatsIcon stroke={color} width={size} height={size} fill={fill} />;
-                case 'Wallet': return <WalletIcon stroke={color} width={size} height={size} fill={fill} />;
-                case 'Profile': return (
-                    <View style={[styles.avatarContainer, isFocused && styles.activeAvatar]}>
-                        <Image 
-                            source={{ uri: 'https://i.pravatar.cc/100?img=32' }} 
-                            style={styles.avatar} 
-                        />
-                    </View>
-                );
-                default: return <HomeIcon stroke={color} width={size} height={size} fill={fill} />;
+                case 'Home': 
+                  return <HomeIcon stroke={iconColor} fill={iconFill} width={moderateScale(24)} height={moderateScale(24)} />;
+                case 'Message': 
+                  return <ChatIcon stroke={iconColor} fill={iconFill} width={moderateScale(22)} height={moderateScale(22)} />;
+                case 'History': 
+                  // StatsIcon uses stroke for its paths
+                  return <StatsIcon stroke={iconColor} width={moderateScale(24)} height={moderateScale(24)} />;
+                case 'Wallet': 
+                  // WalletIcon uses stroke for its path
+                  return <WalletIcon stroke={iconColor} width={moderateScale(22)} height={moderateScale(20)} />;
+                default: 
+                  return <HomeIcon stroke={iconColor} width={moderateScale(24)} height={moderateScale(24)} />;
               }
           }
 
-          return (
-            <TouchableOpacity
-              key={index}
-              onPress={onPress}
-              style={styles.tabItem}
-              activeOpacity={0.7}
-            >
-              <View style={styles.iconWrapper}>
-                <Icon />
-                {isFocused && route.name !== 'Profile' && (
-                  <Text style={styles.activeLabel}>{route.name}</Text>
-                )}
-              </View>
-            </TouchableOpacity>
-          );
-        })}
-      </View>
+              return (
+                <TouchableOpacity
+                  key={index}
+                  onPress={onPress}
+                  style={styles.tabItem}
+                  activeOpacity={0.7}
+                >
+                  <View style={styles.iconWrapper}>
+                    <Icon />
+                    {isFocused && route.name !== 'Profile' && (
+                      <Text style={styles.activeLabel}>{route.name}</Text>
+                    )}
+                  </View>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  outerWrapper: {
     position: 'absolute',
-    bottom: verticalScale(20),
-    left: scale(20),
-    right: scale(20),
+    bottom: 0,
+    left: 0,
+    right: 0,
+    paddingHorizontal: scale(20),
+    backgroundColor: 'transparent',
+    zIndex: 100,
+  },
+  container: {
     height: moderateScale(75),
     borderRadius: moderateScale(40),
-    zIndex: 100,
     backgroundColor: 'rgba(255, 255, 255, 0.6)', 
     borderWidth: 1,
     borderColor: 'rgba(255, 255, 255, 0.6)',

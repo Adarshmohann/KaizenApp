@@ -10,12 +10,18 @@ import LoanIcon from '../../../assets/svgs/loanIcon';
 import ChatIcon from '../../../assets/svgs/chatIcon';
 import FinanceIcon from '../../../assets/svgs/financeIcon';
 import CalendarIcon from '../../../assets/svgs/calendarIcon';
-import { LineChart, PieChart } from "react-native-gifted-charts";
+import CreditScoreGauge from '../../../components/CreditScoreGauge';
+import { LineChart } from "react-native-gifted-charts";
+import chatSupportIcon from '../../../assets/svgs/chatSupportIcon';
 
 const { width } = Dimensions.get('window');
 
 const HomePage = () => {
   const styles = HomePageStyles();
+
+  const currentScore = 730;
+  const minScore = 400;
+  const maxScore = 850;
 
   interface LineDataPoint {
     value: number;
@@ -38,73 +44,35 @@ const HomePage = () => {
     { value: 740, label: 'Jul' },
   ];
 
-  const renderGauge = () => {
-  
-    
-    const totalPoints = maxScore - minScore;
-    const progressPoints = currentScore - minScore;
-    
+  const actionData = [
+    { id: 1, title: "Pay\nMoney", color: "#346AFD", icon: CardIcon },
+    { id: 2, title: "Loan\nRequest", color: "#00BFA5", icon: LoanIcon },
+    { id: 3, title: "Chat\nSupport", color: "#FFAB40", icon: chatSupportIcon },
+    { id: 4, title: "Finance\nHub", color: "#7C4DFF", icon: FinanceIcon },
+  ];
 
-    
-    const segmentData = [
-      { value: 24, color: '#FF5733' },
-      { value: 1, color: 'transparent' },
-      { value: 24, color: '#FFBD33' }, 
-      { value: 1, color: 'transparent' },
-      { value: 24, color: '#DCE775' },
-      { value: 1, color: 'transparent' }, 
-      { value: 24, color: '#F0F0F0' }, 
-    ];
+  const renderActionItem = (title: string, color: string, Icon: React.FC<any>, id: number) => {
+    let iconWidth = moderateScale(22);
+    let iconHeight = moderateScale(22);
+
+    // Adjust specific icon sizes to look balanced since their stroke paths vary
+    if (id === 1) iconHeight = moderateScale(18); // Card is wider than tall
+    if (id === 2) iconWidth = moderateScale(19);  // Loan is taller than wide
+    if (id === 3) iconHeight = moderateScale(21); // Chat is almost square
+    if (id === 4) { iconWidth = moderateScale(21); iconHeight = moderateScale(21); } // Finance is square
 
     return (
-      <View style={styles.gaugeContainer}>
-        <View style={{ width: moderateScale(200), height: moderateScale(110), alignItems: 'center', overflow: 'hidden' }}>
-            <PieChart
-                donut
-                semiCircle
-                data={segmentData}
-                radius={moderateScale(95)}
-                innerRadius={moderateScale(82)}
-                innerCircleColor={'#ffffff'}
-                backgroundColor={'transparent'}
-            />
-          
-          <View style={{ position: 'absolute', top: verticalScale(25), alignItems: 'center' }}>
-            <Text style={styles.scoreStatus}>Good</Text>
-            <Text style={styles.scoreValue}>704</Text>
-            <Text style={styles.ptsText}>+6pts</Text>
-          </View>
-        </View>
-
-        
-        <View style={[styles.scoreRange, { width: moderateScale(200) }]}>
-            <Text style={styles.rangeText}>400</Text>
-            <View style={styles.updateRow}>
-                <CalendarIcon stroke="#BBB" width={14} height={14} style={{ marginRight: scale(4) }} />
-                <Text style={styles.updateText}>update on 02 Oct 2024</Text>
-            </View>
-            <Text style={styles.rangeText}>850</Text>
-        </View>
+      <View key={title} style={styles.actionItem}>
+          <TouchableOpacity 
+              style={[styles.actionIconContainer, { backgroundColor: color + '15' }]}
+              activeOpacity={0.7} 
+          >
+              <Icon stroke={color} fill={color + '20'} width={iconWidth} height={iconHeight} />
+          </TouchableOpacity>
+          <Text style={styles.actionLabel}>{title}</Text>
       </View>
     );
-  };
-
-  
-  const currentScore = 704;
-  const minScore = 400;
-  const maxScore = 850;
-
-  const renderActionItem = (title: string, color: string, Icon: React.FC<any>) => (
-    <View style={styles.actionItem}>
-        <TouchableOpacity 
-            style={[styles.actionIconContainer, { backgroundColor: color + '15' }]}
-            activeOpacity={0.7} 
-        >
-            <Icon stroke={color} width={22} height={22} />
-        </TouchableOpacity>
-        <Text style={styles.actionLabel}>{title}</Text>
-    </View>
-  )
+  }
 
   return (
     <AppLayout topColor={lightColor.background} bottomColor={lightColor.background} scrollable={false}>
@@ -118,22 +86,17 @@ const HomePage = () => {
               <Text style={styles.subtitleText}>Your credit in excellent shape!</Text>
             </View>
             <TouchableOpacity style={styles.notificationContainer} activeOpacity={0.7}>
-              <NotificationIcon stroke={lightColor.black} width={22} height={22} />
+              <NotificationIcon stroke={lightColor.black} width={moderateScale(20)} height={moderateScale(20)} />
             </TouchableOpacity>
           </View>
 
-          
-          <View style={styles.scoreCard}>
-              {renderGauge()}
+          <View style={[styles.scoreCard, { paddingBottom: moderateScale(10) }]}>
+              <CreditScoreGauge score={currentScore} />
           </View>
 
-          
           <View style={styles.actionCard}>
               <View style={styles.actionSection}>
-                {renderActionItem("Pay\nMoney", "#346AFD", CardIcon)}
-                {renderActionItem("Loan\nRequest", "#00BFA5", LoanIcon)}
-                {renderActionItem("Chat\nSupport", "#FFAB40", ChatIcon)}
-                {renderActionItem("Finance\nHub", "#7C4DFF", FinanceIcon)}
+                  {actionData.map((item) => renderActionItem(item.title, item.color, item.icon, item.id))}
               </View>
           </View>
 
@@ -179,8 +142,8 @@ const HomePage = () => {
         </TouchableOpacity> 
 
       </View>
-    </AppLayout>
+    </AppLayout> 
   );
 };
-
-export default HomePage;
+ 
+export default HomePage; 

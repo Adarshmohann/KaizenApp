@@ -1,19 +1,25 @@
+
 import * as React from "react";
 import Svg, { Path } from "react-native-svg";
-
-const ChatIcon = (props: any) => (
+const ChatIcon = (props:any ) => (
   <Svg
-    width={props?.width ?? 24}
-    height={props?.height ?? 24}
-    viewBox="0 0 24 24"
-    fill={props?.fill ?? "none"}
-    stroke={props?.stroke ?? "currentColor"}
-    strokeWidth={2}
-    strokeLinecap="round"
-    strokeLinejoin="round"
+ width={props?.width ?? 21}
+    height={props?.height ?? 20}
+    viewBox="0 0 21 20"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <Path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+    <Path
+      d="M0.75 10.51C0.75 12.11 1.873 13.504 3.457 13.737C4.544 13.897 5.642 14.02 6.75 14.106V18.75L10.826 14.674C11.1024 14.3994 11.4735 14.2409 11.863 14.231C13.7644 14.1784 15.661 14.0134 17.543 13.737C19.127 13.504 20.25 12.111 20.25 10.509V4.491C20.25 2.889 19.127 1.496 17.543 1.263C15.211 0.920716 12.857 0.74926 10.5 0.750002C8.108 0.750002 5.756 0.925002 3.457 1.263C1.873 1.496 0.75 2.89 0.75 4.491V10.509V10.51Z"
+      fill={props?.fill??"#346AFD"}
+      stroke={props?.stroke??"#346AFD"}
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 export default ChatIcon;
+
+

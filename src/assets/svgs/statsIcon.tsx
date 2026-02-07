@@ -1,20 +1,30 @@
-import * as React from "react";
-import Svg, { Path, Circle } from "react-native-svg";
 
-const StatsIcon = (props: any) => (
+import * as React from "react";
+import Svg, { Path } from "react-native-svg";
+const StatsIcon = (props :any) => (
   <Svg
-    width={props?.width ?? 24}
-    height={props?.height ?? 24}
+    width={ props?.width??24}
+    height={props?.height??24}
     viewBox="0 0 24 24"
-    fill={props?.fill ?? "none"}
-    stroke={props?.stroke ?? "currentColor"}
-    strokeWidth={2}
-    strokeLinecap="round"
-    strokeLinejoin="round"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <Circle cx="12" cy="12" r="10" />
-    <Path d="M12 6v6l4 2" />
+    <Path
+      d="M18.32 12C20.92 12 22 11 21.04 7.72C20.39 5.51 18.49 3.61 16.28 2.96C13 2 12 3.08 12 5.68V8.56C12 11 13 12 15 12H18.32Z"
+      stroke={props?.stroke ?? "#484C52"}
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M20.0001 14.7C19.0701 19.33 14.6301 22.69 9.58005 21.87C5.79005 21.26 2.74005 18.21 2.12005 14.42C1.31005 9.39001 4.65005 4.95001 9.26005 4.01001"
+      stroke={props?.stroke ?? "#484C52"}
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
-export default StatsIcon;
+ export default StatsIcon;
+

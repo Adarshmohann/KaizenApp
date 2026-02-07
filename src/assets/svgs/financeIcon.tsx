@@ -3,19 +3,21 @@ import Svg, { Path } from "react-native-svg";
 
 const FinanceIcon = (props: any) => (
   <Svg
-    width={props?.width ?? 24}
-    height={props?.height ?? 24}
-    viewBox="0 0 24 24"
+    width={props?.width ?? 20}
+    height={props?.height ?? 20}
+    viewBox="0 0 20 20"
     fill="none"
-    stroke={props?.stroke ?? "currentColor"}
-    strokeWidth={2}
-    strokeLinecap="round"
-    strokeLinejoin="round"
+    xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <Path d="M12 20V10" />
-    <Path d="M18 20V4" />
-    <Path d="M6 20v-4" />
+    <Path
+      d="M0.625 10.75C0.625 10.129 1.129 9.625 1.75 9.625H4C4.621 9.625 5.125 10.129 5.125 10.75V17.5C5.125 18.121 4.621 18.625 4 18.625H1.75C1.45163 18.625 1.16548 18.5065 0.954505 18.2955C0.743527 18.0845 0.625 17.7984 0.625 17.5V10.75ZM7.375 6.25C7.375 5.629 7.879 5.125 8.5 5.125H10.75C11.371 5.125 11.875 5.629 11.875 6.25V17.5C11.875 18.121 11.371 18.625 10.75 18.625H8.5C8.20163 18.625 7.91548 18.5065 7.7045 18.2955C7.49353 18.0845 7.375 17.7984 7.375 17.5V6.25ZM14.125 1.75C14.125 1.129 14.629 0.625 15.25 0.625H17.5C18.121 0.625 18.625 1.129 18.625 1.75V17.5C18.625 18.121 18.121 18.625 17.5 18.625H15.25C14.9516 18.625 14.6655 18.5065 14.4545 18.2955C14.2435 18.0845 14.125 17.7984 14.125 17.5V1.75Z"
+      stroke={props?.stroke ?? "#6B5BFF"}
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
+
 export default FinanceIcon;

@@ -14,8 +14,8 @@ const OnBoardingPage = () => {
         <AppLayout topColor={lightColor.white} bottomColor={lightColor.white}>
             <View style={styles.container}>
                 
-                {/* Image Section - 70% height */}
-                <View style={styles.imageContainer}>
+                
+                <View style={[styles.imageContainer,{}]}>
                     <Image 
                         source={require('../../../assets/images/onBoardingImage.png')} 
                         style={styles.placeholderImage} 
@@ -23,9 +23,9 @@ const OnBoardingPage = () => {
                     />
                 </View>
 
-                {/* Content Section - 30% height */}
+               
                 <View style={styles.contentContainer}>
-                    {/* Text Section (Title & Description) */}
+                    
                     <View style={styles.textSection}>
                         <Text style={styles.title}>Your Credit Score</Text>
                         <Text style={styles.description}>
@@ -33,8 +33,8 @@ const OnBoardingPage = () => {
                         </Text>
                     </View>
 
-                    {/* Button Section */}
-                    <View style={styles.footer}>
+                    
+                    <View style={[styles.footer,{}]}>
                         <View style={styles.buttonOuterCircle}>
                             <TouchableOpacity 
                                 style={styles.buttonContainer}

@@ -54,7 +54,7 @@ const ProfilePage = () => {
             <View style={styles.profileImageContainer}>
               <View style={styles.imageWrapper}>
                 <Image 
-                  source={{ uri: 'https://i.pravatar.cc/300?img=32' }} 
+                  source={require('../../../assets/images/profileImage.png')} 
                   style={styles.profileImage} 
                 />
               </View>

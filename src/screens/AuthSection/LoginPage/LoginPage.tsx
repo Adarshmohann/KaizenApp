@@ -10,7 +10,6 @@ import LoginPageStyles from './styles';
 import CustomTextInput from '../../../components/CustomTextInput';
 import CustomButton from '../../../components/CustomButton';
 import { lightColor } from '../../../theme/colors';
-import Svg, { Path } from 'react-native-svg';
 import FingerPrintIcon from '../../../assets/svgs/fingerprintIcon';
 import CustomSwitch from '../../../components/CustomSwitch';
 
@@ -29,7 +28,7 @@ const LoginPage = () => {
     return (
         <AppLayout topColor={lightColor.white} bottomColor={lightColor.white} scrollable={true}>
             <View style={styles.container}>
-                {/* Logo Section */}
+                
                 <View style={[styles.logoContainer,{}]}>
                    <Image
                      source={require('../../../assets/images/logo.png')} 
@@ -38,8 +37,8 @@ const LoginPage = () => {
                    />    
                 </View>
 
-                {/* Form Section */}
-                <View style={styles.formContainer}>
+               
+                <View style={[styles.formContainer,{}]}>
                     <Text style={{ fontSize: 14, color: '#000', marginBottom: 8, fontWeight: '500' }}>
                         Phone Number<Text style={{ color: 'red' }}>*</Text>
                     </Text>
@@ -82,8 +81,8 @@ const LoginPage = () => {
                         required
                     />
 
-                    {/* Biometric Login */}
-                    <TouchableOpacity style={styles.biometricContainer} activeOpacity={0.7}>
+                   
+                    <TouchableOpacity style={[styles.biometricContainer,{}]} activeOpacity={0.7}>
                        <FingerPrintIcon
                         height={20}
                         width={20}
@@ -92,14 +91,14 @@ const LoginPage = () => {
                         <Text style={styles.biometricText}>Use Biometric Login</Text>
                     </TouchableOpacity>
 
-                    {/* Log In Button */}
+                    
                     <CustomButton
                         title="Log In"
                         onPress={handleLogin}
                         style={{ marginTop: 10 }}
                     />
 
-                    {/* Keep me logged in */}
+                    
                     <View style={styles.keepLoggedContainer}>
                         <Text style={styles.keepLoggedText}>Keep me logged in</Text>
                         <CustomSwitch
@@ -108,8 +107,8 @@ const LoginPage = () => {
                         />
                     </View>
 
-                    {/* Footer */}
-                    <View style={styles.footer}>
+                   
+                    <View style={[styles.footer,{}]}>
                         <Text style={styles.footerText}>Don't have an account ? </Text>
                         <TouchableOpacity activeOpacity={0.7}>
                             <Text style={styles.signUpText}>Sign Up</Text>

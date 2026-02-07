@@ -1,32 +1,23 @@
+
 import * as React from "react";
 import Svg, { Path } from "react-native-svg";
-const FingerPrintIcon = (props:any) => 
-{
-    return(
+    const FingerPrintIcon = (props:any) => (
   <Svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={ props?.width??24}
-    height={props?.height??24}
-    viewBox="0 0 24 24"
+    width={ props?.width??18}
+    height={props?.height??20}
+    viewBox="0 0 18 20"
     fill="none"
-    stroke={props?.stroke??"currentColor"}
-    strokeWidth={2}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="lucide lucide-fingerprint-pattern-icon lucide-fingerprint-pattern"
+    xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <Path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4" />
-    <Path d="M14 13.12c0 2.38 0 6.38-1 8.88" />
-    <Path d="M17.29 21.02c.12-.6.43-2.3.5-3.02" />
-    <Path d="M2 12a10 10 0 0 1 18-6" />
-    <Path d="M2 16h.01" />
-    <Path d="M21.8 16c.2-2 .131-5.354 0-6" />
-    <Path d="M5 19.5C5.5 18 6 15 6 12a6 6 0 0 1 .34-2" />
-    <Path d="M8.65 22c.21-.66.45-1.32.57-2" />
-    <Path d="M9 6.8a6 6 0 0 1 9 5.2v2" />
+    <Path
+      d="M5.26409 1.99352C6.39449 1.24625 7.70622 0.819185 9.0599 0.757721C10.4136 0.696256 11.7586 1.00269 12.9521 1.64445C14.1455 2.28621 15.1428 3.23932 15.838 4.40249C16.5332 5.56567 16.9002 6.89545 16.9001 8.25052C16.9001 11.1705 16.3441 13.9595 15.3321 16.5185M3.14209 4.11452C2.32965 5.34072 1.89757 6.7796 1.90009 8.25052C1.90245 9.66355 1.50366 11.0482 0.750092 12.2435M2.73909 15.8025C4.61612 13.7356 5.65418 11.0426 5.65009 8.25052C5.65009 7.25596 6.04518 6.30214 6.74844 5.59887C7.4517 4.89561 8.40553 4.50052 9.40009 4.50052C10.3947 4.50052 11.3485 4.89561 12.0517 5.59887C12.755 6.30214 13.1501 7.25596 13.1501 8.25052C13.1501 8.77752 13.1291 9.29952 13.0861 9.81552M9.40009 8.25052C9.40567 11.8266 8.12832 15.2861 5.80009 18.0005M12.4331 13.4045C11.8916 15.3013 11.0529 17.1003 9.94809 18.7345"
+      stroke={props?.stroke ?? "#346AFD"}
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
-
-}
 export default FingerPrintIcon;
+

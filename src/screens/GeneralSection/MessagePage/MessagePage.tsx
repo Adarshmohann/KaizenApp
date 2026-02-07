@@ -118,12 +118,12 @@ const MessagePage = () => {
                     />
                 </View> 
  
-                <CustomButton  
+                <CustomButton   
                     title="Start a new chat"   
                     onPress={() => {}}  
                     style={styles.startChatButton}
                     backgroundColor={lightColor.primary}
-                />
+                /> 
             </View> 
         </AppLayout>
     );

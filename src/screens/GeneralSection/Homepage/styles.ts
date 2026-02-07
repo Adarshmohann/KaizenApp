@@ -126,7 +126,7 @@ const HomePageStyles = () => {
     },
     fab: {
         position: 'absolute',
-        bottom: verticalScale(80),
+        bottom: moderateScale(100),
         right: scale(20),
         width: moderateScale(56),
         height: moderateScale(56),
