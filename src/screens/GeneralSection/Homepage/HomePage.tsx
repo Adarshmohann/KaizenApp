@@ -48,7 +48,7 @@ const HomePage = () => {
     { id: 1, title: "Pay\nMoney", color: "#346AFD", icon: CardIcon },
     { id: 2, title: "Loan\nRequest", color: "#00BFA5", icon: LoanIcon },
     { id: 3, title: "Chat\nSupport", color: "#FFAB40", icon: chatSupportIcon },
-    { id: 4, title: "Finance\nHub", color: "#7C4DFF", icon: FinanceIcon },
+    { id: 4, title: "Finance\nHub", color: "#6b5bff", icon: FinanceIcon }, 
   ];
 
   const renderActionItem = (title: string, color: string, Icon: React.FC<any>, id: number) => {

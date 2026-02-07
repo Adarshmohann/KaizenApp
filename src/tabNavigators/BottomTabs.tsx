@@ -1,20 +1,15 @@
-import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React from 'react';
+import HistoryPage from '../screens/GeneralSection/HistoryPage/HistoryPage';
 import HomePage from '../screens/GeneralSection/Homepage/HomePage';
 import MessagePage from '../screens/GeneralSection/MessagePage/MessagePage';
-import HistoryPage from '../screens/GeneralSection/HistoryPage/HistoryPage';
-import WalletPage from '../screens/GeneralSection/WalletPage/WalletPage';
 import ProfilePage from '../screens/GeneralSection/ProfilePage/ProfilePage';
+import WalletPage from '../screens/GeneralSection/WalletPage/WalletPage';
 import CustomBottomTab from './CustomBottomTab';
-import { View, Text } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
-const DummyScreen = ({ name }: { name: string }) => (
-  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    <Text>{name} Screen</Text>
-  </View>
-);
+
 
 export default function BottomTabs() {
   return (

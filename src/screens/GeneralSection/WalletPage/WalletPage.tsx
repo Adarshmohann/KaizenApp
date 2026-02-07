@@ -10,7 +10,7 @@ const WalletPage = () => {
       <View style={styles.container}>
         <AppHeader title="Wallet" titleAlign="left" />
         <View style={styles.content}>
-          <Text style={styles.placeholderText}>Wallet content goes here</Text>
+          <Text style={styles.placeholderText}>Wallet Page</Text>
         </View>
       </View>
     </AppLayout>

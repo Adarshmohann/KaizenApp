@@ -1,32 +1,49 @@
 import React, { useState } from 'react';
 import {
-    View,
+    Dimensions,
+    Image,
     Text,
     TouchableOpacity,
-    Image,
+    View,
 } from 'react-native';
-import AppLayout from '../../../layouts/AppLayout';
-import LoginPageStyles from './styles';
-import CustomTextInput from '../../../components/CustomTextInput';
-import CustomButton from '../../../components/CustomButton';
-import { lightColor } from '../../../theme/colors';
+import { CountryPicker } from 'react-native-country-codes-picker';
+import { moderateScale } from 'react-native-size-matters';
 import FingerPrintIcon from '../../../assets/svgs/fingerprintIcon';
+import CustomButton from '../../../components/CustomButton';
 import CustomSwitch from '../../../components/CustomSwitch';
+import CustomTextInput from '../../../components/CustomTextInput';
+import AppLayout from '../../../layouts/AppLayout';
+import { lightColor } from '../../../theme/colors';
+import LoginPageStyles from './styles';
 
-import { useAppDispatch } from '../../../utils/hooks';
+const { height } = Dimensions.get('window');
+
 import { setAuthenticated } from '../../../redux/slices/authSlice';
+import { useAppDispatch } from '../../../utils/hooks';
 
 const LoginPage = () => {
     const styles = LoginPageStyles();
     const [keepLoggedIn, setKeepLoggedIn] = useState(false);
+    const [countryCode, setCountryCode] = useState('US');
+    const [callingCode, setCallingCode] = useState('+1');
+    const [flag, setFlag] = useState('🇺🇸');
+    const [show, setShow] = useState(false);
+    
     const dispatch = useAppDispatch();
 
     const handleLogin = () => {
         dispatch(setAuthenticated(true));
     };
 
+    const togglePicker = () => setShow(!show);
+
     return (
-        <AppLayout topColor={lightColor.white} bottomColor={lightColor.white} scrollable={true}>
+        <AppLayout 
+        topColor={lightColor.white} 
+        bottomColor={lightColor.white} 
+        scrollable={true}
+        behaviour={"padding"}
+        >
             <View style={styles.container}>
                 
                 <View style={[styles.logoContainer,{}]}>
@@ -47,12 +64,29 @@ const LoginPage = () => {
                         <TouchableOpacity 
                             style={styles.countryPickerButton}
                             activeOpacity={0.7}
+                            onPress={togglePicker}
                         >
-                            <Image 
-                                source={{ uri: 'https://flagcdn.com/w40/us.png' }} 
-                                style={{ width: 24, height: 16, borderRadius: 2 }} 
-                            />
+                            <Text style={{ fontSize: moderateScale(20) }}>{flag}</Text>
+                            <Text style={{ color: '#000', marginLeft: moderateScale(4), fontSize: 16 }}>{callingCode}</Text>
                             <Text style={{ color: '#000', marginLeft: 8, fontSize: 16 }}>⌵</Text>
+
+                            <CountryPicker
+                                show={show}
+                                lang={'en'}
+                                pickerButtonOnPress={(item) => {
+                                    setCountryCode(item.code);
+                                    setCallingCode(item.dial_code);
+                                    setFlag(item.flag);
+                                    setShow(false);
+                                }}
+                                onBackdropPress={() => setShow(false)}
+                                onRequestClose={() => setShow(false)}
+                                style={{
+                                    modal: {
+                                        height: height / 2,
+                                    },
+                                }}
+                            />
                         </TouchableOpacity>
 
                         <CustomTextInput

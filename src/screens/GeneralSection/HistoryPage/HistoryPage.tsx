@@ -10,7 +10,7 @@ const HistoryPage = () => {
       <View style={styles.container}>
         <AppHeader title="History" titleAlign="left" />
         <View style={styles.content}>
-          <Text style={styles.placeholderText}>History content goes here</Text>
+          <Text style={styles.placeholderText}>History Page</Text>
         </View>
       </View>
     </AppLayout>

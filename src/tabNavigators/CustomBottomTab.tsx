@@ -11,7 +11,6 @@ import { BlurView } from '@react-native-community/blur';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-const { width } = Dimensions.get('window');
 
 const CustomBottomTab = ({ state, descriptors, navigation }: BottomTabBarProps) => {
 
@@ -68,10 +67,10 @@ const CustomBottomTab = ({ state, descriptors, navigation }: BottomTabBarProps) 
                 case 'Message': 
                   return <ChatIcon stroke={iconColor} fill={iconFill} width={moderateScale(22)} height={moderateScale(22)} />;
                 case 'History': 
-                  // StatsIcon uses stroke for its paths
+                  
                   return <StatsIcon stroke={iconColor} width={moderateScale(24)} height={moderateScale(24)} />;
                 case 'Wallet': 
-                  // WalletIcon uses stroke for its path
+                  
                   return <WalletIcon stroke={iconColor} width={moderateScale(22)} height={moderateScale(20)} />;
                 default: 
                   return <HomeIcon stroke={iconColor} width={moderateScale(24)} height={moderateScale(24)} />;

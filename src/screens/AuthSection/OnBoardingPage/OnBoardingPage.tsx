@@ -42,12 +42,12 @@ const OnBoardingPage = () => {
                                 onPress={() => navigation.navigate('LoginPage')}
                             >
                                 <View style={styles.arrowIcon} />
-                            </TouchableOpacity>
+                             </TouchableOpacity>
                         </View>
                     </View>
                 </View>
 
-            </View>
+            </View> 
         </AppLayout>
     );
 };

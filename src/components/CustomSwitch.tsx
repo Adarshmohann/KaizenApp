@@ -29,13 +29,13 @@ const CustomSwitch: React.FC<CustomSwitchProps> = ({
     Animated.timing(animatedValue, {
       toValue: value ? 1 : 0,
       duration: 200,
-      useNativeDriver: false, // backgroundColor doesn't support native driver
+      useNativeDriver: false,
     }).start();
   }, [value]);
 
   const translateX = animatedValue.interpolate({
     inputRange: [0, 1],
-    outputRange: [2, moderateScale(22)], // Adjust based on switch width and circle size
+    outputRange: [2, moderateScale(22)], 
   });
 
   const backgroundColor = animatedValue.interpolate({
